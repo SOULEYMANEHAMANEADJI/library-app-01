@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AuthorController!{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <h2 class="card-header text-center">Modifier un auteur</h2>
+                    <div class="card-body">
+                        <form action="{{path('edit_book', {'id':book.id})}}" method="post">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" value="{{ book.title }}" placeholder="Entrer le titre"  autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Isbn</label>
+                                <input type="text" class="form-control" id="isbn" name="isbn" value="{{ book.isbn }}" placeholder="Entrer le titre"  autocomplete="off">
+                            </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Author</label>
+                                <select name="author" id="author" class="form-control">
+                                    <option value="">Faites votre choix</option>
+                                    {% for author in authors %}
+                                        <option value="{{ author.id }}" {% if book.author and book.author.id == author.id %}selected{% endif %}>{{ author.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mybtn w-50">
+                                <button type="submit" class="btn btn-outline-primary btn-sm" name="save">Update</button>
+                                <a href="{{path('list_book')}}"  class="btn btn-outline-danger btn-sm" name="cancel" >Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
